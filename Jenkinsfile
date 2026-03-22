@@ -1,17 +1,22 @@
 pipeline {
-  agent any
-  stages {
-    stage('check out ') {
-      steps {
-        git(url: 'https://github.com/ginni-t/maven-samples.git', branch: 'master')
-      }
+    agent any
+
+    tools {
+        maven 'Maven3'
+        jdk 'JDK8'
     }
 
-    stage('run') {
-      steps {
-        sh 'mvn clean test verify'
-      }
-    }
+    stages {
+        stage('check out') {
+            steps {
+                git(url: 'https://github.com/ginni-t/maven-samples.git', branch: 'master')
+            }
+        }
 
-  }
+        stage('run') {
+            steps {
+                sh 'mvn clean test verify'
+            }
+        }
+    }
 }
